@@ -14,7 +14,16 @@ Este es un juego de simulación de batallas basado en la serie **Game of Thrones
 
 ## Estructura del proyecto
 
-*(Agregar la estructura del proyecto si es necesario)*
+```
+TpFinal/
+├── CMakeLists.txt
+├── main.cpp
+├── data/
+│   ├── *header files*
+├── functions/
+│   └── *cpp files*
+└── README.md
+```
 
 ---
 
