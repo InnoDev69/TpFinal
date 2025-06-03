@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
-#include "data/constants.h"
-#include "data/game_display.h"
+#include "./data/constants.h"
+#include "./data/game_display.h"
 
 using namespace std;
 // Función para mostrar el estado actual del juego
