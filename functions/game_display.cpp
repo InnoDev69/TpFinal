@@ -1,12 +1,24 @@
-#include "../data/game_display.h"
+#include "../headers/game_display.h"
 #include <iostream>
 
+using namespace std;
+
 void mostrar_estado(int batalla_actual, int oro, int comida, int soldados, float pasiva_probabilidad) {
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << "Batalla actual: " << batalla_actual << std::endl;
-    std::cout << "Oro: " << oro << std::endl;
-    std::cout << "Comida: " << comida << std::endl;
-    std::cout << "Soldados: " << soldados << std::endl;
-    std::cout << "Probabilidad base: " << pasiva_probabilidad << std::endl;
-    std::cout << "---------------------------------------" << std::endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Batalla actual: " << batalla_actual << endl;
+    cout << "Oro: " << oro << endl;
+    cout << "Comida: " << comida << endl;
+    cout << "Soldados: " << soldados << endl;
+    cout << "Probabilidad base: " << pasiva_probabilidad << endl;
+    cout << "---------------------------------------" << endl;
+}
+
+// Función para mostrar el menú principal
+void mostrar_menu_principal(int batalla_actual, int oro, int comida, int soldados, float pasiva_probabilidad) {
+    mostrar_estado(batalla_actual, oro, comida, soldados, pasiva_probabilidad);
+    cout << "1. IR A LA BATALLA" << endl;
+    cout << "2. TIENDA" << endl;
+    cout << "3. SALIR" << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "OPCION: ";
 }

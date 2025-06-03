@@ -2,34 +2,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
-#include "./data/constants.h"
-#include "./data/game_display.h"
+#include "./headers/constants.h"
+#include "./headers/game_display.h"
+#include "./headers/game_logic.h"
 
 using namespace std;
-// Función para mostrar el estado actual del juego
-
-// Función para mostrar el menú principal
-void mostrar_menu_principal(int batalla_actual, int oro, int comida, int soldados, float pasiva_probabilidad) {
-    mostrar_estado(batalla_actual, oro, comida, soldados, pasiva_probabilidad);
-    cout << "1. IR A LA BATALLA" << endl;
-    cout << "2. TIENDA" << endl;
-    cout << "3. SALIR" << endl;
-    cout << "---------------------------------------" << endl;
-    cout << "OPCION: ";
-}
-
-// Función para confirmar si el jugador quiere ir a batalla
-bool confirmar_batalla(int soldados, int comida, float pasiva_probabilidad) {
-    cout << "Estado actual:" << endl;
-    cout << "Soldados: " << soldados << endl;
-    cout << "Comida: " << comida << endl;
-    cout << "Probabilidad base: " << pasiva_probabilidad << endl << endl;
-    
-    int respuesta;
-    cout << "¿Deseas continuar? 1(SI) / 2(NO): ";
-    cin >> respuesta;
-    return respuesta == 1;
-}
 
 // Función para simular una ronda de batalla
 bool simular_ronda(int ronda, float prob_base, int& soldados_combate, int& soldados_totales) {
