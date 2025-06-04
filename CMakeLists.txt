@@ -13,7 +13,9 @@ include_directories(${PROJECT_SOURCE_DIR}/functions)
 set(SOURCES
     main.cpp
     functions/game_display.cpp
-    functions/game_logic.cpp
+    functions/cuestions.cpp
+    functions/utils.cpp
+    functions/logica_batalla.cpp
 )
 
 # Crea el ejecutable

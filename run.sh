@@ -4,3 +4,4 @@ cd build
 cmake ..
 make
 ./game
+rm -rf game
