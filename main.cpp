@@ -94,24 +94,78 @@ int main() {
         
         switch (opcion) {
             case 1: // Batalla
-                int soldadosActuales = soldados;
-                float porcentajePerdidasRonda = 0.5f;
-                int oroGanadoPorRonda = oroPorRonda;
+                float probVictoria;
+                float probPerdida;
+                for (int r=0; r<DURACION_GUERRA; r++)
+                {    
+                    probVictoria = PROB_INICIAL;
+                    probPerdida = PROB_PERDIDA;
+                    int soldadosActuales = soldados;
+                    int soldadosCombate = min(soldados, comida); // Solo pueden combatir los que tienen comida
+                    if (!chequearRecursos(soldados, comida) || !indicarFinBatalla(batalla_actual)) break;
+                    
+                    mostrarRecursos(oro, comida, soldados);
+                    if (!confirmarContinuar(batalla_actual)) break;
 
-                if (! chequearRecursos(soldados, comida) && !indicarFinBatalla(batalla_actual)) break;
+                    if (indicarUltBatalla(batalla_actual)) break;
 
-                mostrarRecursos(oro, comida, soldados);
-                if (!confirmarContinuar(batalla_actual)) break;
-        
-                indicarFinBatalla(batalla_actual);
+                    // Calcular probabilidad de victoria
+                    float probBase = probPerdida - (batalla_actual * 0.05f);
+                    float probSoldados = (soldadosCombate / SOLDADOS_PROBABILIDAD) * PROB_POR_SOLDADOS;
+                    float probTotal = probBase + probSoldados + pasiva_probabilidad;
+                    
+                    // Aplicar pasiva Targaryen
+                    if (casa == TARGARYEN) {
+                        probTotal *= (1.0f + TARGARYEN_EFECTIVIDAD);
+                    }
 
-                if (chequearDerrotas) return 0;
+                    // Determinar victoria/derrota
+                    bool victoria = (float)rand() / RAND_MAX < probTotal;
+                    
+                    // Calcular pérdidas
+                    int perdidas = (soldadosCombate * batalla_actual * probPerdida / 100);
+                    
+                    // Aplicar pasiva Stark
+                    if (casa == STARK) {
+                        perdidas = perdidas * (1.0f - (STARK_REDUCCION_TROPAS * batalla_actual));
+                    }
+                    
+                    // Consumir recursos
+                    soldados -= perdidas;
+                    int comidaConsumida = soldadosCombate;
+                    comida -= comidaConsumida;
 
-                if (indicarUltBatalla(batalla_actual)) break;
+                    if (victoria) {
+                        // Recompensas por victoria
+                        int oroGanado = ORO_BASE_RONDA + (batalla_actual * 5000);
+                        
+                        // Pasiva Lannister - recuperar oro basado en soldados
+                        if (casa == LANNISTER) {
+                            int oroPromedioSoldado = (DatosCasas[casa][costoPorBatallon] / cantSoldadosPorBatallon);
+                            oroGanado += (oroPromedioSoldado * soldadosCombate * LANNISTER_ORO_EXTRA);
+                        }
+                        
+                        oro += oroGanado;
+                        
+                        // Pasiva Baratheon - recuperar comida
+                        if (casa == BARATHEON) {
+                            int comidaRecuperada = comidaConsumida * BARATHEON_RESCATE_COMIDA;
+                            comida += comidaRecuperada;
+                            cout << "¡Comida recuperada: " << comidaRecuperada << "!" << endl;
+                        }
+                        
+                        cout << "¡Victoria! Oro ganado: " << oroGanado << endl;
+                    } else {
+                        derrotas_totales++;
+                        cout << "Derrota... Derrotas totales: " << derrotas_totales << endl;
+                    }
 
-                enviarSoldados(soldados, soldadosActuales, comida);
+                    if (chequearDerrotas(derrotas_totales)) return 0;
 
+                    probVictoria -= 0.05f;
+                    probPerdida += 0.05f;
 
+                    system("pause");}
                 break;
                 
             case 2: // Tienda
