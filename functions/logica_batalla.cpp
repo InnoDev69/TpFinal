@@ -7,79 +7,74 @@
 
 using namespace std;
 
-// Verifica si hay recursos suficientes para la batalla
-// Función para simular una ronda de batalla
-bool simular_ronda(int ronda, float prob_base, int& soldados_combate, int& soldados_totales) {
-    cout << "\nRonda " << ronda << "..." << endl;
-    
-    float dificultad = 1.0f + (ronda * 0.05f);
-    float prob_victoria = prob_base / dificultad;
-    
-    bool victoria = (float)rand() / RAND_MAX < prob_victoria;
-    cout << (victoria ? "¡Victoria!" : "Derrota...") << endl;
-    
-    int perdidas = (soldados_combate * ronda * 5) / 100;
-    soldados_combate -= perdidas;
-    soldados_totales -= perdidas;
-    
-    cout << "Soldados perdidos: " << perdidas << endl;
-    cout << "Soldados restantes: " << soldados_totales << endl;
-    
-    return victoria;
+bool chequearRecursos(int soldados, int comida){
+    if (soldados <= 0 || comida <= 0) {
+        cout << "¡No tienes suficientes recursos para continuar la batalla!" << endl;
+        cout << "Soldados: " << soldados << ", Comida: " << comida << endl;
+        system("pause");
+        return false;
+    }else return true;  
 }
 
-// Función principal de batalla - retorna si ganó y modifica oro, soldados, comida, derrotas
-bool ejecutar_batalla(int& oro, int& soldados, int& comida, int& derrotas_totales, 
-                     float pasiva_probabilidad, int batalla_actual) {
-    
-    int soldados_combate = min(soldados, comida);
-    if (soldados_combate <= 0) {
-        cout << "¡No tienes suficientes soldados o comida!" << endl;
-        derrotas_totales++;
+bool indicarFinBatalla(int batalla_actual){
+    if (batalla_actual >= DURACION_GUERRA) {
+        cout << "¡Has alcanzado el final de la guerra!" << endl;
+        cout << "Preciona cualquier tecla para volver" << endl;
+        system("pause");
+        return true;
+    }
+    return false;
+}
+
+bool confirmarContinuar(int &batalla_actual){
+    char respuesta;
+    cout << "¿Deseas continuar con la batalla? (s/n): ";
+    cin >> respuesta;
+    if (respuesta == 'n' || respuesta == 'N') {
+        cout << "Batalla cancelada." << endl;
         return false;
     }
-    
-    if (batalla_actual == DURACION_GUERRA) {
-        cout << "~~ BATALLA FINAL ~~" << endl;
-    }
-    cout << "Batalla número: " << batalla_actual + 1 << endl;
-    cout << "Soldados en combate: " << soldados_combate << endl;
-    
-    float prob_total = pasiva_probabilidad + (soldados_combate / 1000.0f) * 0.15f;
-    
-    int victorias = 0;
-    int soldados_temp = soldados;
-    for (int ronda = 1; ronda <= RONDAS_POR_BATALLA; ronda++) {
-        if (simular_ronda(ronda, prob_total, soldados_combate, soldados_temp)) {
-            victorias++;
-        }
-    }
-    
-    soldados = soldados_temp; // Aplicar pérdidas
-    bool victoria = victorias > RONDAS_POR_BATALLA / 2;
-    
-    if (victoria) {
-        int oro_ganado = 10000 + (batalla_actual + 1) * 5000;
-        oro += oro_ganado;
-        cout << "\n¡VICTORIA EN LA BATALLA!" << endl;
-        cout << "Oro ganado: " << oro_ganado << endl;
-    } else {
-        cout << "\nDerrota en la batalla..." << endl;
-        derrotas_totales++;
-    }
-    
-    // Consumir comida
-    comida = max(0, comida - min(soldados_combate, comida));
-    return victoria;
+    batalla_actual++;
+    return true;
 }
-bool confirmar_batalla(int soldados, int comida, float pasiva_probabilidad) {
-    cout << "Estado actual:" << endl;
-    cout << "Soldados: " << soldados << endl;
+
+void mostrarRecursos(int oro, int comida, int soldados) {
+    cout << "Recursos actuales:" << endl;
+    cout << "Oro: " << oro << endl;
     cout << "Comida: " << comida << endl;
-    cout << "Probabilidad base: " << pasiva_probabilidad << endl << endl;
-    
-    int respuesta;
-    cout << "¿Deseas continuar? 1(SI) / 2(NO): ";
-    cin >> respuesta;
-    return respuesta == 1;
+    cout << "Soldados: " << soldados << endl;
 }
+
+bool indicarUltBatalla(int batalla_actual) {
+    if (batalla_actual == DURACION_GUERRA) {
+        cout << "¡Esta es tu última batalla!" << endl;
+        cout << "Preciona cualquier tecla para continuar" << endl;
+        system("pause");
+        return true;
+    }
+    return false;
+}
+
+bool chequearDerrotas(int batallas_perdidas) {
+    if (batallas_perdidas >= MAX_DERROTAS) {
+        cout << "¡Has alcanzado el máximo de derrotas permitidas!" << endl;
+        cout << "Preciona cualquier tecla para salir" << endl;
+        system("pause");
+        return true;
+    }
+    return false;
+}
+
+void mostrarSoldadosEnviados(int soldados_actuales) {
+    cout << "Soldados enviados a la batalla: " << soldados_actuales << endl;
+}
+
+void enviarSoldados(int& soldados_totales, int& soldados_actuales, int& comida) {
+    if (comida <= soldados_totales){
+        soldados_actuales = comida;
+        soldados_totales -= soldados_actuales;
+        comida = 0;
+    }else comida -= soldados_actuales;
+    mostrarSoldadosEnviados(soldados_actuales);
+}
+

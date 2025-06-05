@@ -94,26 +94,24 @@ int main() {
         
         switch (opcion) {
             case 1: // Batalla
-                if (batalla_actual >= DURACION_GUERRA) {
-                    cout << "¡No hay más batallas! Has completado la guerra." << endl;
-                    system("pause");
-                    break;
-                }
-                
-                if (confirmar_batalla(soldados, comida, pasiva_probabilidad)) {
-                    if (ejecutar_batalla(oro, soldados, comida, derrotas_totales, 
-                                       pasiva_probabilidad, batalla_actual)) {
-                        batalla_actual++; // Solo incrementar si no hubo error
-                    }
-                    
-                    if (derrotas_totales >= MAX_DERROTAS) {
-                        cout << "\n¡GAME OVER! Los White Walkers han conquistado Targaryen." << endl;
-                        system("pause");
-                        return 0;
-                    }
-                    
-                    system("pause");
-                }
+                int soldadosActuales = soldados;
+                float porcentajePerdidasRonda = 0.5f;
+                int oroGanadoPorRonda = oroPorRonda;
+
+                if (! chequearRecursos(soldados, comida) && !indicarFinBatalla(batalla_actual)) break;
+
+                mostrarRecursos(oro, comida, soldados);
+                if (!confirmarContinuar(batalla_actual)) break;
+        
+                indicarFinBatalla(batalla_actual);
+
+                if (chequearDerrotas) return 0;
+
+                if (indicarUltBatalla(batalla_actual)) break;
+
+                enviarSoldados(soldados, soldadosActuales, comida);
+
+
                 break;
                 
             case 2: // Tienda

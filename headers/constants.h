@@ -11,6 +11,7 @@ const int RONDAS_POR_BATALLA        = 10;
 const float PROB_INICIAL            = 0.5f;
 const int cantSoldadosPorBatallon   = 10000;
 const int cantAlimentosPorBatallon  = 10000;
+const int oroPorRonda               = 15000;
 
 // Índices de la matriz de datos
 const int oroInicial        = 0;
