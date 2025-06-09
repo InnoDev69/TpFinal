@@ -8,5 +8,6 @@ void mostrarRecursos(int oro, int comida, int soldados);
 bool indicarUltBatalla(int batalla_actual);
 bool chequearDerrotas(int batallas_perdidas);
 void enviarSoldados(int& soldados_totales, int& soldados_actuales, int& comida);
+void gestionarBatallaCompleta(int& oro, int& comida, int& soldados, int& batalla_actual, int& derrotas_totales, float& pasiva_probabilidad, int casa);
 
 #endif

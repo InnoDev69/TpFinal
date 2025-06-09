@@ -11,21 +11,11 @@ int siCasaExiste(int casa) {
     return casa; // Casa valida
 }
 
-bool iniciar_ronda(int ronda, float prob_base, int& soldados_combate, int& soldados_totales) {
-    cout << "\nRonda " << ronda << "..." << endl;
-    
-    float dificultad = 1.0f + (ronda * 0.05f);
-    float prob_victoria = prob_base / dificultad;
-    
-    bool victoria = (float)rand() / RAND_MAX < prob_victoria;
-    cout << (victoria ? "¡Victoria!" : "Derrota...") << endl;
-    
-    int perdidas = (soldados_combate * ronda * 5) / 100;
-    soldados_combate -= perdidas;
-    soldados_totales -= perdidas;
-    
-    cout << "Soldados perdidos: " << perdidas << endl;
-    cout << "Soldados restantes: " << soldados_totales << endl;
-    
-    return victoria;
+int obtenerMinimo(int a, int b) {
+    /*
+    1. Usa el operador ternario (condición ? valor_si_verdadero : valor_si_falso)
+    2. Si a < b es verdadero, retorna a
+    3. Si a < b es falso, retorna b
+    */
+    return (a < b) ? a : b;
 }
