@@ -3,75 +3,9 @@
 #include "./headers/game_display.h"
 #include "./headers/cuestions.h"
 #include "./headers/logica_batalla.h"
+#include "./headers/tienda.h"
 
 using namespace std;
-
-// Función para mostrar la tienda
-void mostrar_tienda(int oro, int comida, int soldados, float pasiva_probabilidad, int casa) {
-    mostrar_estado(0, oro, comida, soldados, pasiva_probabilidad); // batalla_actual no es relevante aquí
-    cout << "TIENDA" << endl;
-    cout << "---------------------------------------" << endl;
-    cout << "1. Soldados          $" << DatosCasas[casa][costoPorBatallon] << " x " << cantSoldadosPorBatallon << " unidades" << endl;
-    cout << "2. Comida            $" << DatosCasas[casa][costoAlimBatallon]<< " x " << cantAlimentosPorBatallon << " unidades" << endl;
-    cout << "3. Mejorar pasiva    $" << DatosCasas[casa][costoMejora] << " x +" << DatosCasas[casa][porcentajeMejora] << endl;
-    cout << "4. Volver" << endl;
-    cout << "---------------------------------------" << endl;
-    cout << "Opcion: ";
-}
-
-// Función para procesar compras en la tienda
-// Función para procesar compras en la tienda
-void procesar_tienda(int& oro, int& soldados, int& comida, float& pasiva_probabilidad, int casa) {
-    int opcion;
-    do {
-        system("cls");
-        mostrar_tienda(oro, comida, soldados, pasiva_probabilidad, casa);
-        cin >> opcion;
-        system("cls");
-        
-        switch (opcion) {
-            case 1: // Soldados
-                if (oro >= DatosCasas[casa][costoPorBatallon]) {
-                    oro -= DatosCasas[casa][costoPorBatallon];
-                    soldados += cantSoldadosPorBatallon;
-                    cout << "¡Soldados comprados!" << endl;
-                } else {
-                    cout << "¡No tienes oro suficiente!" << endl;
-                }
-                break;
-                
-            case 2: // Comida
-                if (oro >= DatosCasas[casa][costoAlimBatallon]) {
-                    oro -= DatosCasas[casa][costoAlimBatallon];
-                    comida += cantAlimentosPorBatallon;
-                    cout << "¡Comida comprada!" << endl;
-                } else {
-                    cout << "¡No tienes oro suficiente!" << endl;
-                }
-                break;
-                
-            case 3: // Mejora pasiva
-                if (oro >= DatosCasas[casa][costoMejora]) {
-                    oro -= DatosCasas[casa][costoMejora];
-                    pasiva_probabilidad += DatosCasas[casa][porcentajeMejora];
-                    cout << "¡Pasiva mejorada!" << endl;
-                } else {
-                    cout << "¡No tienes oro suficiente!" << endl;
-                }
-                break;
-                
-            case 4: // Volver
-                return;
-                
-            default:
-                cout << "Opción inválida" << endl;
-        }
-        
-        if (opcion != 4) {
-            system("pause");
-        }
-    } while (opcion != 4);
-}
 
 int main() {
     srand(time(NULL));

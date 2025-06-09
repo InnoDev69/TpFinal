@@ -16,6 +16,7 @@ set(SOURCES
     functions/cuestions.cpp
     functions/utils.cpp
     functions/logica_batalla.cpp
+    functions/tienda.cpp
 )
 
 # Crea el ejecutable

@@ -39,6 +39,7 @@ const string Casas[4] = {
 
 // Matriz de datos
 const float DatosCasas[4][8] = {
+    //oroInicial, costoPorBatallon, costoAlimBatallon, chancHabilidad, habilidad, costoMejora, porcentajeMejora, valorPasiva}
     {75000, 10000, 5000, 0.15f, 0.30f, 10000, 0.5f , 0.30f},   //LANNISTER
     {50000, 8500 , 5000, 0.30f, 0.20f, 8500 , 0.5f , 0.1f},    //STARK
     {60000, 12500, 5000, 0.10f, 0.20f, 25000, 0.10f, 0.35f},   //TARGARYEN

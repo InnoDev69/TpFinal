@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "../headers/utils.h"
 #include "../headers/constants.h"
 using namespace std;
@@ -18,4 +19,8 @@ int obtenerMinimo(int a, int b) {
     3. Si a < b es falso, retorna b
     */
     return (a < b) ? a : b;
+}
+
+string decimalAPorcentaje(float valor) {
+    return to_string(int(valor * 100)) + "%";
 }
