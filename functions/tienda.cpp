@@ -10,7 +10,7 @@ using namespace std;
 
 // Función para mostrar la tienda
 void mostrar_tienda(int oro, int comida, int soldados, float probabilidad_habilidad, int casa) {
-    mostrar_estado(0, oro, comida, soldados, probabilidad_habilidad);
+    mostrar_estado(0, oro, comida, soldados, probabilidad_habilidad, casa);
     cout << "TIENDA" << endl;
     cout << "---------------------------------------" << endl;
     cout << "1. Soldados          $" << DatosCasas[casa][costoPorBatallon] << " x " << cantSoldadosPorBatallon << " unidades" << endl;

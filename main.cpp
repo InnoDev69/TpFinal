@@ -22,7 +22,7 @@ int main() {
     int opcion;
     while (true) {
         system("cls");
-        mostrar_menu_principal(batalla_actual, oro, comida, soldados, pasiva_probabilidad);
+        mostrar_menu_principal(batalla_actual, oro, comida, soldados, pasiva_probabilidad, casa);
         cin >> opcion;
         system("cls");
         
